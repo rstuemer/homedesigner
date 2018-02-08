@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class Main extends Application {
 
@@ -25,6 +27,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        Preferences prefs = Preferences.userRoot()
+                .node("/HomeDesigner");
+
+
+
+        try {
+            String keys[] = prefs.keys();
+            for (int i = 0, n = keys.length; i < n; i++) {
+                System.out.println(keys[i] + ": " + prefs.getInt(keys[i], 0));
+            }
+        } catch (BackingStoreException e) {
+            System.err.println("Unable to read backing store: " + e);
+        }
 
         setUserAgentStylesheet(STYLESHEET_MODENA);
         setPrimaryStage(primaryStage); // **Set the Stage**

@@ -1,16 +1,17 @@
 package UIController;
 
-import de.rst.core.Plan;
 import de.rst.core.Project;
+import de.rst.core.guice.modules.InjectLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
+
+import org.slf4j.Logger;
 import sample.Main;
 
 import java.io.File;
@@ -25,6 +26,10 @@ public class MenuController implements Initializable {
 
     //TODO CDI:
     private Project project;
+
+
+    @InjectLogger
+    Logger logger;
 
     /**
      * Handle action related to "About" menu item.
@@ -43,7 +48,7 @@ public class MenuController implements Initializable {
         //TODO CDI: REPLACE WITH CDI INJECTION of primaryStage
         //Show save file dialog
         File file = fileChooser.showSaveDialog(Main.getPrimaryStage());
-
+        logger.info("Save to file:" + file.getName());
         if(file != null){
             project.saveProject(file);
         }

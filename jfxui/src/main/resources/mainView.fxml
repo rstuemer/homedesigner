@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane fx:id="mainPane" prefHeight="560.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIController.MainController">
 
@@ -27,7 +28,16 @@
                               <items>
                                   <Region styleClass="spacer" />
                                   <HBox styleClass="segmented-button-bar">
-                                  <Button id="createWallButton" fx:id="createWallButton" mnemonicParsing="false" onAction="#enterCreateWallMode" styleClass="createWallButton" />
+                                      <Button id="createWallButton" fx:id="enterPickModeButton" mnemonicParsing="false" onAction="#enterPickMode" >
+                                          <graphic>
+                                              <FontIcon iconLiteral="far-hand-point-up" iconSize="48" iconColor="WHITE"/>
+                                          </graphic>
+                                      </Button>
+                                  <Button id="createWallButton" fx:id="createWallButton" mnemonicParsing="false" onAction="#enterCreateWallMode" >
+                                      <graphic>
+                                          <FontIcon iconLiteral="fa-edit" iconSize="48" iconColor="WHITE"/>
+                                      </graphic>
+                                  </Button>
                                   </HBox>
                               </items>
                           </ToolBar>
