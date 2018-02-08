@@ -1,0 +1,35 @@
+.root {
+    -fx-base: rgba(60, 63, 65, 255);
+    -light-black: rgb(74, 75, 78);
+    -dark-highlight: rgb(87, 89, 92);
+    -dark-black: rgb(39, 40, 40);
+    -darkest-black: rgb(5, 5, 5);
+    -mid-gray: rgb(216, 222, 227);
+    -fx-background-color: -mid-gray;
+
+}
+
+.view2d {
+    -fx-background-color: whitesmoke;
+}
+
+.btn {
+
+}
+
+.createWallButton {
+    -fx-background-image: url("../icons/wall.png");
+    -fx-background-size: 30px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 0.4em 1.833333em 0.4em 1.833333em;
+    -fx-border-width: 0;
+}
+
+.toolbar {
+    -fx-padding: 50px;
+}
+
+.toolbar .spacer {
+    -fx-padding: 0 5.417em 0 0;
+}

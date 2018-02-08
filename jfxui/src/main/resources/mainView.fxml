@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainPane" prefHeight="560.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIController.MainController">
+
+    <top>
+            <VBox>
+               <children>
+                <fx:include fx:id="embeddedMenu" source="menu.fxml" />
+   
+                   <VBox id="toolbarVBox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+      <children>
+                          <ToolBar id="toolbar" prefHeight="40.0" prefWidth="200.0">
+                              <items>
+                                  <Region styleClass="spacer" />
+                                  <HBox styleClass="segmented-button-bar">
+                                  <Button id="createWallButton" fx:id="createWallButton" mnemonicParsing="false" onAction="#enterCreateWallMode" styleClass="createWallButton" />
+                                  </HBox>
+                              </items>
+                          </ToolBar>
+      </children>
+                   </VBox>
+               </children>
+            </VBox>
+    </top>
+
+    <left>
+        <GridPane id="panelLeft" prefWidth="200">
+           <children>
+               <ListView layoutX="-2.0" layoutY="79.0" prefHeight="492.0" prefWidth="200.0" />
+           </children>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+
+        </GridPane>
+    </left>
+   <center>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <ScrollPane id="view2d" fx:id="view2D" minHeight="100.0" minWidth="160.0" onMouseClicked="#mouseClickedIn2dView" onMouseEntered="#mouseEnter2dView" onMouseExited="#mouseExited2dView" onMouseMoved="#mouseMoved2dView" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #f8f8ff;" />
+          <StackPane fx:id="view3D" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+        </items>
+      </SplitPane>
+   </center>
+
+
+
+</BorderPane>
