@@ -59,16 +59,10 @@ public class MainController {
         embeddedMenuController.foo("It works"); //Console print "It works"
 
         //TODO Create on New Menu Entry and Inject with CDI
-        plan = new Plan();
-        plan.setHeight(25);
-        plan.setWidth(25);
-        plan.setPlanScale(5);
-        plan.setZoom(55);
-        plan.setRulerWidth(20);
+
 
         Project project = new Project();
-        project.setPlan(plan);
-
+        project.init();
         embeddedMenuController.setProject(project);
 
         initView3D();

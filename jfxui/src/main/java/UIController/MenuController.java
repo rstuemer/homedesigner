@@ -108,6 +108,11 @@ public class MenuController implements Initializable {
     }
 
     public void handleNewAction(ActionEvent event) {
+
+
+        project = new Project();
+        project.init();
+
     }
 
     public void handleOpenAction(ActionEvent event) {

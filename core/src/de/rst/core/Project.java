@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+
+
 public class Project {
 
 
@@ -62,5 +64,14 @@ public class Project {
 
     public void setPlan(Plan plan) {
         this.plan = plan;
+    }
+
+    public void init() {
+        plan = new Plan();
+        plan.setHeight(25);
+        plan.setWidth(25);
+        plan.setPlanScale(5);
+        plan.setZoom(55);
+        plan.setRulerWidth(20);
     }
 }
