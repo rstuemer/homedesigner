@@ -27,36 +27,48 @@ import uiComponents.PlanView;
 import uiComponents.Ruler;
 import uiComponents.WallView;
 
+import javax.inject.Inject;
+
 
 public class MainController {
 
 
     @FXML
     private Parent embeddedMenu; //embeddedElement
-    @FXML
+    @Inject
     private MenuController embeddedMenuController; // $embeddedElement+Controller
 
 
-    @FXML
+    @Inject @FXML
     private ScrollPane view2D;
 
-    @FXML
+    @Inject @FXML
     private StackPane view3D;
+
+
     private String editState = "none";
     private Plan plan;
     private Group view2DGroup;
     private WallView editedWallView;
     private PlanView planView;
+    private Stage primaryStage;
 
     public MainController() {
 
     }
 
+    public void initialise(Stage stage) {
+
+        primaryStage = stage;
+        //System.out.println(embeddedMenuController);
+        //System.out.println(embeddedMenu);
+        embeddedMenuController.foo("It works"); //Console print "It works"
+
+        initialize();
+        initZoomListener();
+    }
 
     public void initialize() {
-        System.out.println(embeddedMenuController);
-        System.out.println(embeddedMenu);
-        embeddedMenuController.foo("It works"); //Console print "It works"
 
         //TODO Create on New Menu Entry and Inject with CDI
 
@@ -69,7 +81,6 @@ public class MainController {
         initView2d(view2D);
 
 
-        initZoomListener();
 
     }
 
@@ -92,7 +103,7 @@ public class MainController {
     }
 
     private void initZoomListener() {
-        Stage primaryStage = Main.getPrimaryStage();
+
 
         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
                 initView2d(view2D, (Double) newValue);
@@ -220,7 +231,7 @@ public class MainController {
     public void mouseExited2dView(MouseEvent event) {
         event.consume();
         if (editState.equals("create_wall") || editState.equals("create_wall_points")) {
-            Main.getPrimaryStage().getScene().setCursor(Cursor.DEFAULT);
+           primaryStage.getScene().setCursor(Cursor.DEFAULT);
 
         }
     }
@@ -295,5 +306,7 @@ public class MainController {
         }
 
     }
+
+
 }
 
