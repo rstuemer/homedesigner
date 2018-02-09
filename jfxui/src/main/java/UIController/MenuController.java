@@ -14,22 +14,24 @@ import javafx.stage.FileChooser;
 import org.slf4j.Logger;
 import sample.Main;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
 
 
-    @FXML
+    @FXML     @Inject
     private MenuBar menuBar;
 
 
-    //TODO CDI:
-    private Project project;
-
+    @Inject
+   private AppState appState;
 
     @InjectLogger
     Logger logger;
+
+    private MainController mainController;
 
     /**
      * Handle action related to "About" menu item.
@@ -42,15 +44,15 @@ public class MenuController implements Initializable {
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("HDP files (*.hdp)", "*.hdp");
         fileChooser.getExtensionFilters().add(extFilter);
 
         //TODO CDI: REPLACE WITH CDI INJECTION of primaryStage
         //Show save file dialog
-        File file = fileChooser.showSaveDialog(Main.getPrimaryStage());
+        File file = fileChooser.showSaveDialog(appState.getPrimaryStage());
         logger.info("Save to file:" + file.getName());
         if(file != null){
-            project.saveProject(file);
+            appState.getProject().saveProject(file);
         }
 
     }
@@ -108,21 +110,41 @@ public class MenuController implements Initializable {
     }
 
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
     public void handleNewAction(ActionEvent event) {
 
 
-        project = new Project();
+        Project project = new Project();
         project.init();
+        appState.setProject(project);
+        logger.info("New Project Created");
+
+
 
     }
 
     public void handleOpenAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("HomeDesigner Project files (*.hdp)", "*.hdp");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+
+        File file = fileChooser.showOpenDialog(appState.getPrimaryStage());
+
+
+        //TODO move Method to ProjectManager
+        Project project = appState.getProject().loadProject(file);
+        appState.setProject(project);
+        appState.getPrimaryStage().setTitle( appState.getPrimaryStage().getTitle() + " " + project.getPlan().getName());
+
     }
 
     public void handleSaveAsAction(ActionEvent event) {
+    }
+
+    public void addParent(MainController mainController) {
+        this.mainController = mainController;
     }
 }

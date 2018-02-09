@@ -1,6 +1,7 @@
 package sample;
 
 
+import UIController.AppState;
 import UIController.MainController;
 import com.google.inject.Singleton;
 import de.rst.core.guice.modules.InjectLogger;
@@ -9,6 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
+import services.FXMLFileManager;
+import services.FXMLFileManagerImpl;
+//import services.FXMLFileManager;
 
 
 import javax.inject.Inject;
@@ -22,8 +26,10 @@ public class HomeDesignerGUI {
     Logger logger;
 
     @Inject
-    private FXMLLoader mainLoader;
+    private FXMLFileManager fxmlFileManager;
 
+    @Inject
+    private AppState appState;
 
     @Inject
     private MainController mainController;
@@ -31,17 +37,21 @@ public class HomeDesignerGUI {
 
     public void start(final Stage stage) throws IOException {
 
-                mainLoader.setLocation(getClass().getResource("../mainView.fxml"));
-        Parent root = mainLoader.load();
 
+        Parent root = fxmlFileManager.load("mainView");
+        appState.setPrimaryStage(stage);
         initialise(stage);
 
+
         Scene scene = new Scene(root);
-
-
         stage.setTitle("Home Designer 0.0.1");
-        String cssFile =  getClass().getResource("../styles/dark.css").toExternalForm();
+
+
+        String cssFile = appState.getSettings().getTheme().getCssFile();
         scene.getStylesheets().add(cssFile);
+
+
+
 //        scene.setOnKeyPressed(this::handleKeyEvent);
 //        stage.setOnCloseRequest(mainController.getCloseRequestHandler());
 

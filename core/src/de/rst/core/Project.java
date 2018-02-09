@@ -2,11 +2,10 @@ package de.rst.core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
+import java.beans.Transient;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
@@ -16,7 +15,7 @@ public class Project {
 
 
     private Plan plan;
-    private Charset charset;
+    private transient Charset charset;
 
 
     public Project() {
@@ -45,17 +44,18 @@ public class Project {
     }
 
 
-    public void openProject(File file) {
+    public Project loadProject(File file) {
 
 
-        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), charset)) {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException x) {
-            System.err.format("IOException: %s%n", x);
+        Gson gson = new Gson();
+        JsonReader reader = null;
+        try {
+            reader = new JsonReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+       Project project  = gson.fromJson(reader,Project.class);
+        return project;
     }
 
     public Plan getPlan() {
@@ -74,4 +74,6 @@ public class Project {
         plan.setZoom(55);
         plan.setRulerWidth(20);
     }
+
+
 }

@@ -1,7 +1,9 @@
 package sample;
 
+import UIController.AppState;
 import com.gluonhq.ignite.guice.GuiceContext;
 import com.google.inject.AbstractModule;
+import de.rst.core.Project;
 import de.rst.core.guice.modules.CoreModule;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -9,11 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import modules.GuiModule;
+import services.AppSettings;
+import services.Settings;
 
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Arrays;
-
 
 
 public class GuiceApp extends Application {
@@ -23,25 +27,35 @@ public class GuiceApp extends Application {
         launch(args);
     }
 
-    private GuiceContext context = new GuiceContext(this, () -> Arrays.asList(new CoreModule()));
+    private GuiceContext context = new GuiceContext(this, () -> Arrays.asList(new CoreModule(), new GuiModule()));
 
     @Inject
     private FXMLLoader fxmlLoader;
     @Inject
     private HomeDesignerGUI homeDesignerGUI;
-
+    @Inject
+    private AppState appState;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        context.init();
+
 
 //        fxmlLoader.setLocation(getClass().getResource("../mainView.fxml"));
 //        Parent root = fxmlLoader.load();
 
 
 //        try {
-            context.init();
-            homeDesignerGUI.start(primaryStage);
+        context.init();
+
+        //TODO Load Settings from File
+        Settings settings = new AppSettings();
+        Project project = new Project();
+        project.init();
+        appState.setSettings(settings);
+        appState.setProject(project);
+
+
+        homeDesignerGUI.start(primaryStage);
 //        } catch (final RuntimeException e) {
 //            //logError(e);
 //            Platform.exit();
