@@ -9,8 +9,8 @@
 
     <ScrollPane id="view2d" fx:id="view2D" minHeight="100.0" minWidth="160.0"  xmlns="http://javafx.com/javafx"
                 xmlns:fx="http://javafx.com/fxml"
-                fx:controller="View2d"
+                fx:controller="UIController.View2dController"
                 onMouseClicked="#mouseClickedIn2dView" onMouseEntered="#mouseEnter2dView"
                 onMouseExited="#mouseExited2dView" onMouseMoved="#mouseMoved2dView" prefHeight="100.0"
-                prefWidth="160.0" style="-fx-background-color: #f8f8ff;"/>
+                prefWidth="160.0" style="-fx-background-color: #f8f8ff;" pannable="false"/>
 

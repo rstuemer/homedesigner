@@ -40,7 +40,6 @@ public class HomeDesignerGUI {
 
         Parent root = fxmlFileManager.load("mainView");
         appState.setPrimaryStage(stage);
-        initialise(stage);
 
 
         Scene scene = new Scene(root);
@@ -73,12 +72,6 @@ public class HomeDesignerGUI {
 
     }
 
-    private void initialise(final Stage stage) {
-        mainController.initialise(stage);
-
-
-
-    }
 
 
 }

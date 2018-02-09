@@ -52,8 +52,8 @@
                    BorderPane.alignment="CENTER">
             <items>
                 <fx:include source="view2d.fxml"></fx:include>
+                <fx:include source="view3d.fxml"></fx:include>
 
-                <StackPane fx:id="view3D" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
             </items>
         </SplitPane>
     </center>

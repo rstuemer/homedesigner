@@ -3,6 +3,7 @@ package de.rst.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.beans.Transient;
 import java.io.*;
@@ -16,10 +17,14 @@ public class Project {
 
     private Plan plan;
     private transient Charset charset;
+    private SimpleBooleanProperty updateView2dProperty;
+
+
 
 
     public Project() {
         charset = Charset.forName("UTF-8");
+        updateView2dProperty = new SimpleBooleanProperty();
     }
 
 
@@ -76,4 +81,17 @@ public class Project {
     }
 
 
+    public SimpleBooleanProperty updateView2dProperty(){
+        return updateView2dProperty;
+    }
+
+
+    public boolean getUpdateView2d() {
+        return updateView2dProperty.get();
+    }
+
+
+    public void setUpdateView2d(boolean update) {
+        this.updateView2dProperty.set(update);
+    }
 }

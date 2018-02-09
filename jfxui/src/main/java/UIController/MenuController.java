@@ -31,7 +31,7 @@ public class MenuController implements Initializable {
     @InjectLogger
     Logger logger;
 
-    private MainController mainController;
+
 
     /**
      * Handle action related to "About" menu item.
@@ -144,7 +144,5 @@ public class MenuController implements Initializable {
     public void handleSaveAsAction(ActionEvent event) {
     }
 
-    public void addParent(MainController mainController) {
-        this.mainController = mainController;
-    }
+
 }

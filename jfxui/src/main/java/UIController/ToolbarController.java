@@ -16,7 +16,7 @@ public class ToolbarController {
     public void enterPickMode(ActionEvent event) {
         appState.setEditMode("pickMode");
         appState.setCurrentWall(null);
-
+        appState.getProject().setUpdateView2d(true);
 
         //initView2d(view2D);
     }
