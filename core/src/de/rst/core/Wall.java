@@ -1,10 +1,11 @@
 package de.rst.core;
 
+
 import javafx.geometry.Point2D;
 
 import java.util.*;
 
-public class Wall implements Cloneable {
+public class Wall  implements Cloneable  {
 
 
     SortedMap<Integer, Point2D> points = new TreeMap<Integer, Point2D>();

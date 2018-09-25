@@ -2,23 +2,23 @@ package services;
 
 import ui.theme.Theme;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.Locale;
 
 public class AppSettings implements Settings {
 
 
-
-   private  Locale local ;
-   private Theme theme;
-
+    private Locale local;
+    private Theme theme;
 
 
-
-    public AppSettings (){
+    public AppSettings() {
         local = new Locale("de");
         theme = new Theme();
         theme.setMainViewFile("../mainView.html");
-        theme.setCssFile(getClass().getResource("../styles/dark.css").getPath());
+        //URL path = getClass().getResource("../styles/dark.css");
+        //theme.setCssFile(path);
         theme.setName("DEFAULT DARK");
     }
 

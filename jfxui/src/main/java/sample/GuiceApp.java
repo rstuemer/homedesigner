@@ -3,6 +3,7 @@ package sample;
 import UIController.AppState;
 import com.gluonhq.ignite.guice.GuiceContext;
 import com.google.inject.AbstractModule;
+import de.rst.core.EditState;
 import de.rst.core.Project;
 import de.rst.core.guice.modules.CoreModule;
 import javafx.application.Application;
@@ -53,7 +54,7 @@ public class GuiceApp extends Application {
         project.init();
         appState.setSettings(settings);
         appState.setProject(project);
-
+        appState.setEditState(new EditState());
 
         homeDesignerGUI.start(primaryStage);
 //        } catch (final RuntimeException e) {

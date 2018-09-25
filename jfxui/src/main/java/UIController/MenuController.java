@@ -70,24 +70,28 @@ public class MenuController implements Initializable {
         provideAboutFunctionality();
     }
 
-    /**
-     * Handle action related to input (in this case specifically only responds to
-     * keyboard event CTRL-A).
-     *
-     * @param event Input event.
-     */
-    @FXML
-    private void handleKeyInput(final InputEvent event)
-    {
-        if (event instanceof KeyEvent)
-        {
-            final KeyEvent keyEvent = (KeyEvent) event;
-            if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.A)
-            {
-                provideAboutFunctionality();
-            }
-        }
-    }
+//    /**
+//     * Handle action related to input (in this case specifically only responds to
+//     * keyboard event CTRL-A).
+//     *
+//     * @param event Input event.
+//     */
+//    @FXML
+//    private void handleKeyInput(final InputEvent event)
+//    {
+//        if (event instanceof KeyEvent)
+//        {
+//            final KeyEvent keyEvent = (KeyEvent) event;
+//            if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.A)
+//            {
+//                provideAboutFunctionality();
+//            }
+//        }
+//
+//
+//
+//        logger.info("Event"+   event.isConsumed());
+//    }
 
     /**
      * Perform functionality associated with "About" menu selection or CTRL-A.

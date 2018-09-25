@@ -19,6 +19,7 @@
         <module name="core" />
         <module name="importer" />
         <module name="jfxui" />
+        <module name="libs" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +27,7 @@
       <module name="Home" target="1.9" />
       <module name="importer" target="1.9" />
       <module name="jfxui" target="1.9" />
+      <module name="libs" target="1.9" />
     </bytecodeTargetLevel>
   </component>
 </project>

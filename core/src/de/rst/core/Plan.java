@@ -89,11 +89,16 @@ public class Plan {
         return new Point2D(x,y);
     }
 
-    public void fitToScreenIfNecessary(double width) {
+    public void fitToScreenIfNecessary(double width,double height) {
 
         if(this.getWidth()*zoom < width){
             int newWidth = Math.toIntExact(Math.round(width / zoom));
             this.setWidth(newWidth);
+        }
+
+        if(this.getHeight()*zoom < height){
+            int newHeight = Math.toIntExact(Math.round(height / zoom));
+            this.setHeight(newHeight);
         }
     }
 

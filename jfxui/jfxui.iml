@@ -29,5 +29,7 @@
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-fontawesome-pack:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-fontawesome5-pack:2.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:9.0.0" level="project" />
+    <orderEntry type="library" name="Maven: de.rst:jfx3dviewer:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

@@ -13,14 +13,9 @@ public class Ruler extends Group {
 
 
 
-    /**
-     * @param plan Main Plan Object
-     *
-     */
-    public Ruler(double width, Plan plan) {
+    public Ruler( ) {
         super();
         rulerList = super.getChildren();
-        pixelPerMeter = plan.getZoom();
 
 
 //        if(width > 0 && (pixelPerMeter * plan.getWidth() < width) )
@@ -28,10 +23,19 @@ public class Ruler extends Group {
 
 
 
+
+    }
+
+
+    public void initRuler(Plan plan){
+        pixelPerMeter = plan.getZoom();
+        System.out.println("Ruler Parent Width:" +getParent().getLayoutBounds().getWidth());
+        System.out.println("Ruler Parent Height:" +getParent().getLayoutBounds().getHeight());
+        System.out.println("Ruler  Width:" +plan.getWidth());
+        System.out.println("Ruler  Height:" +plan.getHeight());
+
         createVerticalRuler(plan);
         createHorizontalRuler(plan);
-
-
     }
 
     private void createHorizontalRuler(Plan plan) {

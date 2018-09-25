@@ -1,11 +1,12 @@
 package UIController;
 
+import de.rst.core.EditState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javax.inject.Inject;
 
-public class ToolbarController {
+public class ToolbarController implements IController {
 
 
 
@@ -14,9 +15,9 @@ public class ToolbarController {
 
     @FXML
     public void enterPickMode(ActionEvent event) {
-        appState.setEditMode("pickMode");
-        appState.setCurrentWall(null);
-        appState.getProject().setUpdateView2d(true);
+//        appState.setEditMode("pickMode");
+//        appState.setCurrentWall(null);
+//        appState.getProject().setUpdateView2d(true);
 
         //initView2d(view2D);
     }
@@ -26,10 +27,18 @@ public class ToolbarController {
     public void enterCreateWallMode(ActionEvent event) {
         event.consume();
 
-        if (!appState.getEditMode().equals("create_wall")) {
-            appState.setEditMode("create_wall");
+        EditState value = appState.getEditState().getValue();
+        if (!value.equals("START_CREATION")) {
+            value.changeCurrentState("START_CREATION");
+            appState.getEditState().setValue(value);
         } else {
-            appState.setEditMode("none");
+            value.changeCurrentState("NONE");
+            appState.getEditState().setValue(value);
         }
+    }
+
+    @Override
+    public void initView() {
+
     }
 }

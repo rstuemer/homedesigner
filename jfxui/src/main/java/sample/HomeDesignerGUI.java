@@ -17,6 +17,7 @@ import services.FXMLFileManagerImpl;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.net.URL;
 
 @Singleton
 public class HomeDesignerGUI {
@@ -37,17 +38,21 @@ public class HomeDesignerGUI {
 
     public void start(final Stage stage) throws IOException {
 
-
-        Parent root = fxmlFileManager.load("mainView");
+        stage.setMaximized(true);
         appState.setPrimaryStage(stage);
+
+        Parent root = fxmlFileManager.load("mainViewOnly2D");
 
 
         Scene scene = new Scene(root);
         stage.setTitle("Home Designer 0.0.1");
+        scene.cursorProperty().bind(appState.getCursor());
+
+        URL cssFile = appState.getSettings().getTheme().getCssFile();
+        if(cssFile != null)
+        scene.getStylesheets().add(cssFile.toExternalForm());
 
 
-        String cssFile = appState.getSettings().getTheme().getCssFile();
-        scene.getStylesheets().add(cssFile);
 
 
 

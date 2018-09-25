@@ -1,10 +1,12 @@
 package ui.theme;
 
+import java.net.URL;
+
 public class Theme {
 
     private String mainViewFile;
     private String directory;
-    private String cssFile;
+    private URL cssFile;
     private String name;
 
 
@@ -16,11 +18,11 @@ public class Theme {
         this.directory = directory;
     }
 
-    public String getCssFile() {
+    public URL getCssFile() {
         return cssFile;
     }
 
-    public void setCssFile(String cssFile) {
+    public void setCssFile(URL cssFile) {
         this.cssFile = cssFile;
     }
 

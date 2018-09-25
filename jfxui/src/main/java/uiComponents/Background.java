@@ -12,9 +12,13 @@ public class Background extends Group {
     private double pixelPerMeter;
     private final ObservableList<Node> rulerList;
 
-    public Background(double width, Plan plan) {
+    public Background() {
         super();
         rulerList = super.getChildren();
+
+    }
+
+    public void initBackground(Plan plan){
         pixelPerMeter = plan.getZoom();
 //
 //        if(width > 0 && (pixelPerMeter * plan.getWidth() < width) )

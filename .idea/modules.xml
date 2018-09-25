@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Home.iml" filepath="$PROJECT_DIR$/Home.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" group="de.rst" />
       <module fileurl="file://$PROJECT_DIR$/jfxui/jfxui.iml" filepath="$PROJECT_DIR$/jfxui/jfxui.iml" group="de.rst" />
+      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
     </modules>
   </component>
 </project>

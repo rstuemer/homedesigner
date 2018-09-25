@@ -1,6 +1,7 @@
 package services;
 
 import UIController.AppState;
+import UIController.IController;
 import de.rst.core.guice.modules.InjectLogger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,11 +45,17 @@ public class FXMLFileManagerImpl implements FXMLFileManager {
         loader.setLocation(resource);
         loader.setResources(bundle);
         try {
-            return loader.load();
+            Parent load = loader.load();
+
+            IController controller = loader.getController();
+            controller.initView();
+            return load;
         } catch (IOException e) {
             logger.error("Can't load FXML File for: " + viewName,e);
             e.printStackTrace();
         }
+
+
 
         return null;
     }

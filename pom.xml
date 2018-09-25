@@ -12,6 +12,7 @@
     <modules>
         <module>core</module>
         <module>jfxui</module>
+        <module>libs</module>
     </modules>
 
 

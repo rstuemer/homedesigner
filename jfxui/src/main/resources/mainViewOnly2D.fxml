@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIController.MainController">
+
+    <top>
+        <VBox maxHeight="100.0">
+            <fx:include fx:id="embeddedMenu" source="menu.fxml" />
+
+            <VBox id="toolbarVBox" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+                <fx:include fx:id="embeddedToolbar" source="toolbar.fxml" />
+            </VBox>
+
+        </VBox>
+    </top>
+
+    <left>
+
+    </left>
+    <center>
+        <SplitPane fx:id="centerSplitPane" dividerPositions="0.1514476614699332">
+         <BorderPane>
+            <center>
+               <TreeView fx:id="itemsTreeView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            </center>
+         </BorderPane>
+            <fx:include source="view2d.fxml" />
+        </SplitPane>
+    </center>
+   <bottom>
+       <fx:include source="bottom_toolbar.fxml" />
+   </bottom>
+
+
+</BorderPane>
