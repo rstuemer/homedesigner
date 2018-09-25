@@ -279,9 +279,14 @@ public class View2dController implements IController {
         ScrollPane source = (ScrollPane) mouseEvent.getSource();
         double hvalue = source.getHvalue();
         double vValue = source.getVvalue();
-        double unvisiblePixelV = source.getHeight() * vValue;
+
+
+        double contentHeight = source.getContent().getLayoutBounds().getHeight();
+         contentHeight = contentHeight - source.getHeight();
+        System.out.println("VMAX:"+ contentHeight);
+        double unvisiblePixelV = contentHeight * vValue;
         double   unvisiblePixelH = source.getWidth() * hvalue;
-        System.out.println("hvalue:"+hvalue);
+        System.out.println("hvalue:"+hvalue + "vValue:" + vValue);
         return new double[]{unvisiblePixelV,unvisiblePixelH};
     }
 
