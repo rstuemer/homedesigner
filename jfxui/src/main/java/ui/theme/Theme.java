@@ -41,4 +41,7 @@ public class Theme {
     public void setMainViewFile(String mainViewFile) {
         this.mainViewFile = mainViewFile;
     }
+
+
+    //TODO LAyer System https://docs.oracle.com/javase/8/javafx/graphics-tutorial/canvas.htm#JFXGR214
 }
