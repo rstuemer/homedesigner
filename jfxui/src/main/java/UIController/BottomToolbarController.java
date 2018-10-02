@@ -1,6 +1,7 @@
 package UIController;
 
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -41,8 +42,24 @@ public class BottomToolbarController implements IController {
 
     public void initView() {
 
-        System.out.println("Init BottomBar" + Double.toString(this.appState.getProject().getPlan().getZoom()));
-        this.scaleTextField.setText(Double.toString(this.appState.getProject().getPlan().getZoom()));
+        String value = Double.toString(this.appState.getProject().getPlan().getZoom());
+        System.out.println("Init BottomBar" + value);
+        this.scaleTextField.setText(value);
+        this.scaleSlider.setValue(this.appState.getProject().getPlan().getZoom());
+        this.scaleSlider.setMax(500);
+        this.scaleSlider.setShowTickLabels(true);
+        this.scaleSlider.setShowTickMarks(true);
+        this.scaleSlider.setMajorTickUnit(50);
+        this.scaleSlider.setMinorTickCount(5);
+        this.scaleSlider.setBlockIncrement(10);
+
+        this.scaleSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+
+                scaleTextField.setText(String.format("%.2f", new_val));
+            }
+        });
        // this.scaleTextField.setPromptText(Double.toString(this.appState.getProject().getPlan().getZoom()));
 
     }
@@ -55,6 +72,7 @@ public class BottomToolbarController implements IController {
 
         this.scaleTextField.setText(value);
         this.scaleSlider.setValue(d);
+
     }
 
     public void updateScale(KeyEvent keyEvent) {
@@ -75,7 +93,11 @@ public class BottomToolbarController implements IController {
 
 
     public void updateCoordinatesLabel(double x, double y,double xAbsolute,double yAbsolute){
-        this.coordinatesLabel.setText("x: " + x + "y: " + y +"absolute x: " + xAbsolute + "absolute y: " + yAbsolute );
+
+
+        String value = "x: " + x + "y: " + y + "absolute x: " + xAbsolute + "absolute y: " + yAbsolute;
+
+        this.coordinatesLabel.setText(value);
 
     }
 

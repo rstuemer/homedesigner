@@ -76,7 +76,7 @@ public class Project {
         plan.setHeight(25);
         plan.setWidth(25);
         plan.setPlanScale(5);
-        plan.setZoom(55);
+        plan.setZoom(100);
         plan.setRulerWidth(20);
     }
 

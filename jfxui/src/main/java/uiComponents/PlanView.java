@@ -4,7 +4,8 @@ import UIController.AppState;
 import UIController.View2dController;
 import de.rst.core.Plan;
 import de.rst.core.Wall;
-import javafx.geometry.Point2D;
+import de.rst.core.geo.Point2D;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,15 +23,14 @@ public class PlanView extends Group {
 
     private final Plan plan;
     private WallView tempWallView;
+    @Inject
     private AppState appState;
 
 
-    public PlanView(Plan plan) {
-
+    public PlanView(Plan plan,AppState appState) {
+        this.appState = appState;
 
         this.plan = plan;
-
-        initView();
 
 
     }
@@ -42,6 +42,7 @@ public class PlanView extends Group {
 
             WallView wallView = new WallView(wall, plan);
             this.getChildren().add(wallView);
+            wallView.initWall();
         }
 
         if (this.tempWallView != null)
@@ -81,11 +82,9 @@ public class PlanView extends Group {
     }
 
     public void addEditWall(double x, double y) {
-        System.out.println("finishWall");
+
         Point2D planPoint = new Point2D(x, y);
-        System.out.println("New Wall Point: " + planPoint);
         Wall wall = new Wall(planPoint);
-        System.out.println("Create EDITED WALL :" + wall);
         WallView wallView = new WallView(wall, plan);
         updateTempWallView(wallView);
 
@@ -102,9 +101,7 @@ public class PlanView extends Group {
     }
 
     public void addSegmentWall(double x, double y) {
-        System.out.println("addSegmentWall");
         Point2D planPoint = new Point2D(x, y);
-        System.out.println(planPoint);
         this.tempWallView.addPoint(planPoint);
 
     }
@@ -115,7 +112,6 @@ public class PlanView extends Group {
     }
 
     public void updateLastSegment(double x, double y) {
-        //System.out.println("updateLastSegment");
 //        Point2D planPoint = plan.createPlanPoint(x - plan.getRulerWidth(), y - plan.getRulerWidth());
         Point2D planPoint = new Point2D(x, y);
 
@@ -134,9 +130,15 @@ public class PlanView extends Group {
 
 
     public void changePreviewPoint(double eventX, double eventY) {
-        this.tempWallView.changePreviewPoint(eventX, eventY);
 
-        this.updateTempWallView(this.tempWallView);
+        if (this.tempWallView == null) {
+
+            this.addEditWall(eventX, eventY);
+        } else {
+            this.tempWallView.changePreviewPoint(eventX, eventY);
+            this.updateTempWallView(this.tempWallView);
+        }
+
     }
 
     public void persistTempwall() {
@@ -145,28 +147,25 @@ public class PlanView extends Group {
     }
 
     public Point2D convertToViewPoint(Point2D point2D) {
-        double[] unvisiblePixel;
 
-        Node parent  =this.getScene().lookup("#view2d");
-        if (parent != null) {
-            ScrollPane parentPane = (ScrollPane)parent;
-            unvisiblePixel = getUnvisiblePixel(parentPane);
-        } else {
-            unvisiblePixel = new double[]{0, 0};
-        }
 
-        System.out.println(point2D);
-//        double x = point2D.getX() - unvisiblePixel[1];
-//        double y = point2D.getY() - unvisiblePixel[0];
-        double x = point2D.getX();
-        double y = point2D.getY();
+        double zoom = this.plan.getZoom();
+        double x = point2D.getX() * (zoom/100);
+        double y = point2D.getY() * (zoom/100);
 
-//        if(unvisiblePixel[1] > 0)
-//         x = point2D.getX() - 20;
-//        if(unvisiblePixel[0] > 0)
-//         y = point2D.getY() -20;
+        return new Point2D(x, y);
+    }
 
-        System.out.println(x + " y: " + y);
+    public double convertToAbsolutePoint(double value){
+        double x = value/ (this.appState.getZoomProperty().getValue()/100);
+
+
+        return  x;
+    }
+
+    public Point2D convertToAbsolutePoint(Point2D point2D){
+        double x = point2D.getX()/ (this.appState.getZoomProperty().getValue()/100);
+        double y = point2D.getY() / (this.appState.getZoomProperty().getValue()/100);
 
         return new Point2D(x, y);
     }
@@ -181,7 +180,7 @@ public class PlanView extends Group {
         double[] unvisiblePixel = {unvisiblePixelV, unvisiblePixelH};
 
 
-        System.out.println( "0:" + unvisiblePixel[0] + " 1: "+unvisiblePixel[1]);
+//        System.out.println("0:" + unvisiblePixel[0] + " 1: " + unvisiblePixel[1]);
         return unvisiblePixel;
     }
 }

@@ -88,10 +88,12 @@ public class View2dController implements IController {
 
         plan.fitToScreenIfNecessary(width,height);
 
-        this.planView  = new PlanView(plan);
-        view2DGroup.getChildren().add(this.planView);
+        this.planView  = new PlanView(plan,appState);
 
+        view2DGroup.getChildren().add(this.planView);
         view2D.setContent(view2DGroup);
+        this.planView.initView();
+
         background.initBackground(plan);
         ruler.initRuler(plan);
     }
@@ -129,12 +131,14 @@ public class View2dController implements IController {
         String currentState = this.appState.getEditState().getValue().getCurrentState();
         double[] unvisiblePixel = getUnvisiblePixel(mouseEvent);
 
-        System.out.println("Event mouse Click x:" + mouseEvent.getX() + "eventY"+ mouseEvent.getY() + " unvisiblePixel[0]" + unvisiblePixel[0]+ " unvisiblePixel[1]" + unvisiblePixel[1]);
+        System.out.println("Event mouse Click x:" + mouseEvent.getX() + "eventY"+ mouseEvent.getY() + " unvisiblePixel[0]" + unvisiblePixel[0]+ " unvisiblePixel[1]" + unvisiblePixel[1] + "Source:"+ mouseEvent.getSource() );
 
+        double x = this.planView.convertToAbsolutePoint(mouseEvent.getX() + unvisiblePixel[1]);
+        double y = this.planView.convertToAbsolutePoint(mouseEvent.getY() + unvisiblePixel[0]);
         if ( "START_CREATION".equals(currentState)) {
 
            if(this.appState.changeEditState("ADD_SEGMENT")){
-               this.planView.addEditWall(mouseEvent.getX()+unvisiblePixel[1],mouseEvent.getY()+unvisiblePixel[0]);
+               this.planView.addEditWall(x, y);
 
            }else
                System.out.println("Transition not allowed");
@@ -142,12 +146,12 @@ public class View2dController implements IController {
         } else if( "ADD_SEGMENT".equals(currentState) ){
             if(mouseEvent.getClickCount() >=2) {
                 if(this.appState.changeEditState("FINISH")){
-                    this.planView.finishWall(mouseEvent.getX()+unvisiblePixel[1],mouseEvent.getY()+unvisiblePixel[0]);
+                    this.planView.finishWall(x, y);
                 }
             }else{
                 if(this.appState.changeEditState("ADD_SEGMENT")){
 
-                    this.planView.addSegmentWall(mouseEvent.getX()+unvisiblePixel[1],mouseEvent.getY()+unvisiblePixel[0]);
+                    this.planView.addSegmentWall(x, y);
                 }
             }
 
@@ -169,17 +173,16 @@ public class View2dController implements IController {
         if("ADD_SEGMENT".equals(currentState)){
 
             double[] unvisiblePixel = getUnvisiblePixel(mouseEvent);
-
-            double eventY = mouseEvent.getY() + unvisiblePixel[0];
-           double eventX = mouseEvent.getX()+ unvisiblePixel[1];
-            System.out.println("Event x:" + mouseEvent.getX() + "eventY"+ mouseEvent.getY() + " unvisiblePixel[0]" + unvisiblePixel[0]);
-            this.planView.changePreviewPoint(eventX,eventY);
+            double x = this.planView.convertToAbsolutePoint(mouseEvent.getX() + unvisiblePixel[1]);
+            double y = this.planView.convertToAbsolutePoint(mouseEvent.getY() + unvisiblePixel[0]);
+            //System.out.println("Event x:" + mouseEvent.getX() + "eventY"+ mouseEvent.getY() + " unvisiblePixel[0]" + unvisiblePixel[0]);
+            this.planView.changePreviewPoint(x,y);
             //this.planView.updateTempWallView(  this.planView.getTempWallView());
             view2DGroup.getChildren().remove(this.planView);
             view2DGroup.getChildren().add(this.planView);
             view2D.setContent(view2DGroup);
 
-            this.bottomtoolbarController.updateCoordinatesLabel( mouseEvent.getX(),mouseEvent.getY(),eventX,eventY);
+            this.bottomtoolbarController.updateCoordinatesLabel( mouseEvent.getX(),mouseEvent.getY(),x,y);
 
         }else{
             //System.out.println("CURRENT STATE " + currentState);
@@ -283,10 +286,10 @@ public class View2dController implements IController {
 
         double contentHeight = source.getContent().getLayoutBounds().getHeight();
          contentHeight = contentHeight - source.getHeight();
-        System.out.println("VMAX:"+ contentHeight);
+       // System.out.println("VMAX:"+ contentHeight);
         double unvisiblePixelV = contentHeight * vValue;
         double   unvisiblePixelH = source.getWidth() * hvalue;
-        System.out.println("hvalue:"+hvalue + "vValue:" + vValue);
+        //System.out.println("hvalue:"+hvalue + "vValue:" + vValue);
         return new double[]{unvisiblePixelV,unvisiblePixelH};
     }
 

@@ -1,6 +1,7 @@
 package de.rst.core.geo;
 
 import javafx.geometry.Point3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Point2D extends javafx.geometry.Point2D{
 
@@ -19,6 +20,10 @@ public class Point2D extends javafx.geometry.Point2D{
      */
     public Point2D(double x, double y) {
         super(x, y);
+    }
+
+    public Point2D(Vector2D intersection) {
+        super(intersection.getX(),intersection.getY());
     }
 
 
@@ -167,6 +172,22 @@ public class Point2D extends javafx.geometry.Point2D{
         return midpoint(point.getX(), point.getY());
     }
 
+
+
+    public double angleRelToThis(Point2D point){
+
+
+        double angle = Math.toDegrees(Math.atan2(point.getY(), point.getX()) - Math.atan2(this.getY(), this.getX()));
+        double orientation  = this.getX() * point.getY() - this.getY()*point.getX();
+        if(orientation > 0 ) {
+            angle = angle + 180;
+            System.out.println("Orienttation = <= 0");
+        }
+
+        return angle;
+
+       //atan2(v2.y,v2.x) - atan2(v1.y,v1.x)
+    }
     /**
      * Computes the angle (in degrees) between the vector represented
      * by this point and the specified vector.
@@ -243,8 +264,8 @@ public class Point2D extends javafx.geometry.Point2D{
         final double x = getX();
         final double y = getY();
         double angleRad = Math.toRadians(angle);
-        double newX = x * Math.cos(angleRad) - y * Math.sin(angleRad);
-        double newY = x * Math.sin(angleRad) - y * Math.cos(angleRad);
+        double newX = x * Math.cos(angleRad) + y * Math.sin(angleRad);
+        double newY = -x * Math.sin(angleRad) + y * Math.cos(angleRad);
         return new Point2D(newX,newY);
     }
 
@@ -313,6 +334,12 @@ public class Point2D extends javafx.geometry.Point2D{
         return crossProduct(vector.getX(), vector.getY());
     }
 
+
+
+    public Vector2D getVector2D(){
+        Vector2D vec = new Vector2D(this.getX(),this.getY());
+        return vec;
+    }
     /**
      * Indicates whether some other object is "equal to" this one.
      *
@@ -326,6 +353,8 @@ public class Point2D extends javafx.geometry.Point2D{
             return getX() == other.getX() && getY() == other.getY();
         } else return false;
     }
+
+
 
     /**
      * Returns a hash code value for the point.
@@ -351,5 +380,9 @@ public class Point2D extends javafx.geometry.Point2D{
     @Override public String toString() {
         return "Point2D [x = " + getX() + ", y = " + getY() + "]";
     }
+
+
+
+
 
 }

@@ -1,7 +1,8 @@
 package de.rst.core;
 
 
-import javafx.geometry.Point2D;
+
+import de.rst.core.geo.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
